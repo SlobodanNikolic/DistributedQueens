@@ -61,7 +61,7 @@ public class DelayedMessageSender implements Runnable {
 			
 			messageToSend.sendEffect();
 //				TODO: srediti
-			AppInfo.getInstance().timestampedStandardPrint("Message to send: " + "PING to " + receiverInfo.getIp());
+			AppInfo.getInstance().timestampedStandardPrint("Message " + messageToSend + " sent to " + receiverInfo.getIp());
 			
 		} catch (IOException e) {
 			BootstrapConfig.getInstance().timestampedErrorPrint("Couldn't send message: " + messageToSend.toString());

@@ -68,6 +68,10 @@ public class NodeConfig {
 			this.limit = Integer.parseInt(properties.getProperty("limit"));
 			NodeInfo info = new NodeInfo(this.ip, this.port, this.limit, false);
 			AppInfo.getInstance().setMyNodeInfo(info);
+			String bootIp = properties.getProperty("bootstrapIp");
+			int bootPort = Integer.parseInt(properties.getProperty("bootstrapPort"));
+			NodeInfo bootInfo = new NodeInfo(this.ip, this.port, 0, true);
+			AppInfo.getInstance().setBootstrapInfo(bootInfo);
 			
 		} catch (IOException e) {
 			timestampedErrorPrint("Couldn't open properties file. Exiting...");

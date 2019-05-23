@@ -18,6 +18,7 @@ public class AppInfo {
 public static volatile AppInfo instance = null;
 	
 	private NodeInfo myInfo;
+	private NodeInfo bootstrapInfo;
 	private int sentMessagesCount = 0;
 	private int receivedMessagesCount = 0;
 	
@@ -81,6 +82,18 @@ public static volatile AppInfo instance = null;
 	
 	public NodeInfo getMyInfo() {
 		return myInfo;
+	}
+
+	public NodeInfo getBootstrapInfo() {
+		return bootstrapInfo;
+	}
+
+	public void setBootstrapInfo(NodeInfo bootstrapInfo) {
+		this.bootstrapInfo = bootstrapInfo;
+	}
+
+	public void setMyInfo(NodeInfo myInfo) {
+		this.myInfo = myInfo;
 	}
 
 	

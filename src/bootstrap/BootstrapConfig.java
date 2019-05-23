@@ -69,7 +69,7 @@ public class BootstrapConfig {
 			this.port = properties.getProperty("port");
 			NodeInfo info = new NodeInfo(this.ip, this.port, -1, true);
 			AppInfo.getInstance().setMyNodeInfo(info);
-			
+			AppInfo.getInstance().setBootstrapInfo(info);
 		} catch (IOException e) {
 			timestampedErrorPrint("Couldn't open properties file. Exiting...");
 			System.exit(0);

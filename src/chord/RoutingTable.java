@@ -2,14 +2,18 @@ package chord;
 
 import java.util.HashMap;
 
+import node.NodeInfo;
+
 public class RoutingTable {
 	
-	HashMap<String, Data> table = new HashMap<String, Data>(160);
+	HashMap<String, NodeInfo> neighbors = new HashMap<String, NodeInfo>(160);
 	
-	public Data findInTable(String key) {
-		if(table.containsKey(key))
-			return table.get(key);
-		else
-			return null;
+	public RoutingTable() {
+		
 	}
+	
+	public NodeInfo getNeighbor(String id) {
+		return neighbors.get(id);
+	}
+	
 }

@@ -1,5 +1,5 @@
 package messages;
 
 public enum MessageType {
-	CONNECT, PING
+	CONNECT, PING, JOIN
 }

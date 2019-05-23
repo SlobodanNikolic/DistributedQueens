@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import app.AppInfo;
 import messages.Message;
 import messages.MessageUtil;
+import messages.handlers.JoinHandler;
 import messages.handlers.MessageHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
@@ -19,8 +20,13 @@ import node.SimpleListener;
 public class BootstrapListener extends SimpleListener implements Runnable{
 
 	private final ExecutorService threadPool = Executors.newWorkStealingPool();
-		
+	private BootstrapWorker bootstrap;	
+	
 	private Boolean working = true;
+	
+	public BootstrapListener(BootstrapWorker bootstrap) {
+		this.bootstrap = bootstrap;
+	}
 
 	@Override
 	public void run() {
@@ -58,7 +64,9 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 				case PING:
 					messageHandler = new PingHandler(message);
 					break;
-				
+				case JOIN:
+					messageHandler = new JoinHandler(message, bootstrap);
+					break;
 				}
 				
 				threadPool.submit(messageHandler);
