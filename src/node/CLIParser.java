@@ -8,6 +8,7 @@ import app.AppInfo;
 import bootstrap.BootstrapListener;
 import commands.Command;
 import commands.InfoCommand;
+import commands.JoinCommand;
 import commands.PingCommand;
 
 
@@ -40,7 +41,8 @@ public class CLIParser implements Runnable{
 		this.commandList = new ArrayList<>();
 		
 		commandList.add(new InfoCommand());
-		commandList.add(new PingCommand());	
+		commandList.add(new PingCommand());
+		commandList.add(new JoinCommand());
 	}
 	
 	@Override

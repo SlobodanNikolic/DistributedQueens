@@ -4,6 +4,7 @@ import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import bootstrap.BootstrapWorker;
 import messages.JoinMessage;
+import messages.JoinResponseMessage;
 import messages.Message;
 import messages.MessageType;
 import messages.MessageUtil;
@@ -29,29 +30,26 @@ public class JoinHandler implements MessageHandler {
 				AppInfo.getInstance().timestampedStandardPrint(clientMessage.toString());
 				
 //				First see if the list of nodes is empty
-//				Q: Zakljucati i ovo?
-				if(bootstrap.getNodeCount() == 0) {
-					
+				NodeInfo randomNode = null;
+				if(bootstrap.getNodeCount() != 0) {
+//					TODO: Q: Treba zakljucati uzimanje random nodea?
+					randomNode = bootstrap.randomNode();		
 				}
 				
-	//			TODO: Q: Treba zakljucati uzimanje random nodea?
-				NodeInfo randomNode = bootstrap.randomNode();
-				sendJoinResponse(clientMessage.getSenderInfo(), randomNode);
+//				Q: Zakljucati i ovo?
+				NodeInfo newCookie = bootstrap.addNode(clientMessage.getSenderInfo());
+			
+				sendJoinResponse(clientMessage.getSenderInfo(), randomNode, newCookie);
 			}
-			else {
-//				Got a join response, with NodeInfo of the node that we need to contact
-				NodeInfo nodeToContact = clientMessage.getOriginalSenderInfo();
-				System.out.println("Got a join response. Node to contact ip: " + nodeToContact.getIp()
-				+ " port: " + nodeToContact.getPort());
-			}
+			
 			
 		} else {
 			AppInfo.getInstance().timestampedErrorPrint("Join handler got: " + clientMessage);
 		}
 	}
 	
-	public void sendJoinResponse(NodeInfo receiver, NodeInfo contact) {
-		JoinMessage joinResponse = new JoinMessage(receiver, contact);
+	public void sendJoinResponse(NodeInfo receiver, NodeInfo contact, NodeInfo newCookie) {
+		JoinResponseMessage joinResponse = new JoinResponseMessage(receiver, contact, newCookie);
 		MessageUtil.sendMessage(joinResponse);
 	}
 

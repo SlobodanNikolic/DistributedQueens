@@ -1,6 +1,10 @@
 package node;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class NodeInfo implements Serializable{
 	
@@ -8,8 +12,11 @@ public class NodeInfo implements Serializable{
 	private String port;
 	private String hash;
 	private int limit;
-	private String id;
+	private int id;
+	private ArrayList<Integer> idBase3;
 	private boolean isBootstrap = false;
+
+	private TreeMap<String, NodeInfo> routingTable = new TreeMap<String, NodeInfo>();
 
 	
 	public NodeInfo() {
@@ -23,7 +30,7 @@ public class NodeInfo implements Serializable{
 		this.limit = limit;
 		this.isBootstrap = b;
 		this.hash = "no_hash";
-		this.id = "no_id";
+		this.id = -1;
 	}
 
 	public boolean isBootstrap() {
@@ -67,11 +74,11 @@ public class NodeInfo implements Serializable{
 		this.limit = limit;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

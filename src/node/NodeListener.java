@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 
 import messages.Message;
 import messages.MessageUtil;
+import messages.handlers.JoinResponseHandler;
 import messages.handlers.MessageHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
@@ -56,7 +57,9 @@ public class NodeListener extends SimpleListener implements Runnable {
 				case PING:
 					messageHandler = new PingHandler(message);
 					break;
-				
+				case JOIN_RESPONSE:
+					messageHandler = new JoinResponseHandler(message);
+					break;
 				}
 				
 				threadPool.submit(messageHandler);

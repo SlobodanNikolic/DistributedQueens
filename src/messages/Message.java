@@ -48,7 +48,7 @@ public interface Message extends Serializable {
 	 * Alters the message and returns a new copy with everything intact, except
 	 * the current node being added to the route list.
 	 */
-	Message makeMeASender();
+	void makeMeASender();
 	
 	/**
 	 * Alters the message and returns a new copy with everything intact, except
@@ -64,5 +64,5 @@ public interface Message extends Serializable {
 	 */
 	void sendEffect();
 	
-	
+	NodeInfo getResponseObject();
 }

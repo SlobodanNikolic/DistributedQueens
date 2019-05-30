@@ -4,13 +4,14 @@ import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import node.NodeInfo;
 
-public class JoinMessage extends BasicMessage {
+public class JoinResponseMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
+	private NodeInfo newCookie;
 	
-	public JoinMessage() {
-		super(MessageType.JOIN, AppInfo.getInstance().getMyInfo(), AppInfo.getInstance().getMyInfo(),
-				AppInfo.getInstance().getBootstrapInfo());
+	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, NodeInfo newCookie) {
+		super(MessageType.JOIN_RESPONSE, contact, AppInfo.getInstance().getBootstrapInfo(), receiver);
+		this.newCookie = newCookie;
 	}
 	
 	
@@ -23,22 +24,24 @@ public class JoinMessage extends BasicMessage {
 	public String toString() {
 		String mtype = getMessageType().toString();
 		String id = getMessageId() + "";
-		String info = getOriginalSenderInfo().getId() + "";
+		String info = "";
+		if(getOriginalSenderInfo() != null)
+			info = getOriginalSenderInfo().getId() + "";
+		
 		String info2 = getSenderInfo().getId() + "";
 		String rec = getReceiverInfo().getId() + "";
 		String txt = getMessageText();
-
-		
-		return "Message: " + getMessageType()
-			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getPort() 
-			+ "|" + getSenderInfo().getPort() + "|" + getReceiverInfo().getPort() + "|" 
-			+ getMessageText() + "|";
+ 
+		return "Message: " + mtype
+			+ "|" + id + "|" + info
+			+ "|" + info2 + "|" + rec + "|" 
+			+ txt + "|";
 	}
 
 	@Override
 	public NodeInfo getResponseObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.newCookie;
 	}
 	
 }

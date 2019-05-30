@@ -18,7 +18,7 @@ import node.NodeInfo;
  * @author bmilojkovic
  *
  */
-public class BasicMessage implements Message {
+public abstract class BasicMessage implements Message {
 
 	private static final long serialVersionUID = -9075856313609777945L;
 	private final MessageType type;
@@ -99,17 +99,10 @@ public class BasicMessage implements Message {
 	 * message path can be retraced later.
 	 */
 	@Override
-	public Message makeMeASender() {
+	public void makeMeASender() {
 //		TODO: srediti my servent info
-//		NodeInfo newRouteItem = AppConfig.myServentInfo;
-		
-		List<NodeInfo> newRouteList = new ArrayList<>(routeList);
-//		newRouteList.add(newRouteItem);
-//		Message toReturn = new BasicMessage(getMessageType(), getOriginalSenderInfo(),
-//				getReceiverInfo(), newRouteList, getMessageText(), getMessageId());
-		
-//		TODO: srediti ovo
-		return null;
+		NodeInfo newRouteItem = AppInfo.getInstance().getMyInfo();
+		routeList.add(newRouteItem);
 	}
 	
 	/**
