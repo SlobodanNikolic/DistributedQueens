@@ -2,16 +2,21 @@ package messages;
 
 import app.AppInfo;
 import bootstrap.BootstrapConfig;
+import concurrent.Token;
 import node.NodeInfo;
 
 public class JoinResponseMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
-	private NodeInfo newCookie;
+	private Token token;
 	
-	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, NodeInfo newCookie) {
-		super(MessageType.JOIN_RESPONSE, contact, AppInfo.getInstance().getBootstrapInfo(), receiver);
-		this.newCookie = newCookie;
+	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, String id) {
+		super(MessageType.JOIN_RESPONSE, contact, AppInfo.bootstrapInfo, receiver);
+	}
+	
+	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, Token token, String id) {
+		super(MessageType.JOIN_RESPONSE, contact, AppInfo.bootstrapInfo, receiver);
+		this.token = token;
 	}
 	
 	
@@ -39,9 +44,9 @@ public class JoinResponseMessage extends BasicMessage {
 	}
 
 	@Override
-	public NodeInfo getResponseObject() {
+	public Object getResponseObject() {
 		// TODO Auto-generated method stub
-		return this.newCookie;
+		return this.token;
 	}
 	
 }

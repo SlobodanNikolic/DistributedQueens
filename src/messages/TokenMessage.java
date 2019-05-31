@@ -1,18 +1,24 @@
 package messages;
 
-import app.AppInfo;
 import bootstrap.BootstrapConfig;
+import concurrent.Token;
 import node.NodeInfo;
 
-public class PositionMessage extends BasicMessage {
+public class TokenMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
+	private Token token;
 	
-	public PositionMessage(NodeInfo receiver) {
-		super(MessageType.POSITION, AppInfo.myInfo, AppInfo.myInfo, 
-				receiver);
+	public TokenMessage(NodeInfo originalSender, NodeInfo sender, NodeInfo receiver, Token token) {
+		super(MessageType.PING, originalSender, sender, receiver);
+		this.token = token;
 	}
 	
+	/**
+	 * We want to take away our amount exactly as we are sending, so our snapshots don't mess up.
+	 * This method is invoked by the sender just before sending, and with a lock that guarantees
+	 * that we are white when we are doing this in Chandy-Lamport.
+	 */
 	@Override
 	public void sendEffect() {
 		
@@ -29,8 +35,8 @@ public class PositionMessage extends BasicMessage {
 
 		
 		return "Message: " + getMessageType()
-			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getPort() 
-			+ "|" + getSenderInfo().getPort() + "|" + getReceiverInfo().getPort() + "|" 
+			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getId() 
+			+ "|" + getSenderInfo().getId() + "|" + getReceiverInfo().getId() + "|" 
 			+ getMessageText() + "|";
 	}
 

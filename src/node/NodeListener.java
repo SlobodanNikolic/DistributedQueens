@@ -20,6 +20,11 @@ public class NodeListener extends SimpleListener implements Runnable {
 	private final ExecutorService threadPool = Executors.newWorkStealingPool();
 		
 	private Boolean working = true;
+	private NodeWorker worker;
+	
+	public NodeListener(NodeWorker worker) {
+		this.worker = worker;
+	}
 
 	@Override
 	public void run() {

@@ -4,15 +4,14 @@ import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import node.NodeInfo;
 
-public class PositionMessage extends BasicMessage {
+public class TokenRequest extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
 	
-	public PositionMessage(NodeInfo receiver) {
-		super(MessageType.POSITION, AppInfo.myInfo, AppInfo.myInfo, 
-				receiver);
+	public TokenRequest(NodeInfo originalSender, NodeInfo sender, int sequenceNumber, NodeInfo receiver) {
+		super(MessageType.TOKEN_REQUEST, originalSender, sender, receiver, sequenceNumber+"");		
 	}
-	
+		
 	@Override
 	public void sendEffect() {
 		

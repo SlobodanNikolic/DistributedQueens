@@ -12,12 +12,12 @@ public class InfoCommand implements Command {
 	@Override
 	public void execute(String args) {
 		String nodeType = "";
-		if(AppInfo.getInstance().getMyInfo().isBootstrap())
+		if(AppInfo.myInfo.isBootstrap())
 			nodeType = "Bootstrap";
 		else
 			nodeType = "Node";
-		AppInfo.getInstance().timestampedStandardPrint(nodeType + " info: " + AppInfo.getInstance().getMyInfo().getIp() +
-				" : " + AppInfo.getInstance().getMyInfo().getPort());
+		AppInfo.timestampedStandardPrint(nodeType + " info: " + AppInfo.myInfo.getIp() +
+				" : " + AppInfo.myInfo.getPort());
 	}
 
 }

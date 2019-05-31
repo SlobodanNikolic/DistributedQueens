@@ -15,25 +15,14 @@ import node.NodeInfo;
 
 public class AppInfo {
 	
-public static volatile AppInfo instance = null;
+	public static NodeInfo myInfo;
+	public static NodeInfo bootstrapInfo;
+	public static int sentMessagesCount = 0;
+	public static int receivedMessagesCount = 0;
 	
-	private NodeInfo myInfo;
-	private NodeInfo bootstrapInfo;
-	private int sentMessagesCount = 0;
-	private int receivedMessagesCount = 0;
+	public static Object joinLock = new Object();
 	
-	public static AppInfo getInstance() {
-		if(instance == null) {
-			synchronized(AppInfo.class) {
-                if (instance == null) {
-                    instance = new AppInfo();
-                }
-            }
-		}
-		return instance;
-	}
-	
-	private AppInfo() {
+	public AppInfo() {
 		
 	}
 	
@@ -45,7 +34,7 @@ public static volatile AppInfo instance = null;
 	 * Print a message to stdout with a timestamp
 	 * @param message message to print
 	 */
-	public void timestampedStandardPrint(String message) {
+	public static void timestampedStandardPrint(String message) {
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 		Date now = new Date();
 		
@@ -56,44 +45,11 @@ public static volatile AppInfo instance = null;
 	 * Print a message to stderr with a timestamp
 	 * @param message message to print
 	 */
-	public void timestampedErrorPrint(String message) {
+	public static void timestampedErrorPrint(String message) {
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 		Date now = new Date();
 		
 		System.err.println(timeFormat.format(now) + " - " + message);
-	}
-	
-
-	public int getSentMessagesCount() {
-		return sentMessagesCount;
-	}
-
-	public void setSentMessagesCount(int sentMessagesCount) {
-		this.sentMessagesCount = sentMessagesCount;
-	}
-
-	public int getReceivedMessagesCount() {
-		return receivedMessagesCount;
-	}
-
-	public void setReceivedMessagesCount(int receivedMessagesCount) {
-		this.receivedMessagesCount = receivedMessagesCount;
-	}
-	
-	public NodeInfo getMyInfo() {
-		return myInfo;
-	}
-
-	public NodeInfo getBootstrapInfo() {
-		return bootstrapInfo;
-	}
-
-	public void setBootstrapInfo(NodeInfo bootstrapInfo) {
-		this.bootstrapInfo = bootstrapInfo;
-	}
-
-	public void setMyInfo(NodeInfo myInfo) {
-		this.myInfo = myInfo;
 	}
 
 	

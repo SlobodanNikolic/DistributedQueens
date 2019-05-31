@@ -38,12 +38,11 @@ public abstract class BasicMessage implements Message {
 		this.receiverInfo = reciever;
 		this.routeList = new ArrayList<NodeInfo>();
 		routeList.add(sender);
-		routeList.add(reciever);
 		this.messageText = "";
-		int id = AppInfo.getInstance().getSentMessagesCount();
+		int id = AppInfo.sentMessagesCount;
 		id++;
 		this.messageId = id;
-		AppInfo.getInstance().setSentMessagesCount(id);
+		AppInfo.sentMessagesCount = id;
 	}
 	
 	
@@ -54,12 +53,25 @@ public abstract class BasicMessage implements Message {
 		this.receiverInfo = reciever;
 		this.routeList = new ArrayList<NodeInfo>();
 		routeList.add(sender);
-		routeList.add(reciever);
 		this.messageText = "";
-		int id = AppInfo.getInstance().getSentMessagesCount();
+		int id = AppInfo.sentMessagesCount;
 		id++;
 		this.messageId = id;
-		AppInfo.getInstance().setSentMessagesCount(id);
+		AppInfo.sentMessagesCount = id;
+	}
+	
+	public BasicMessage(MessageType type, NodeInfo originalSender, NodeInfo sender, NodeInfo reciever, String text) {
+		this.type = type;
+		this.originalSenderInfo = originalSender;
+		this.senderInfo = sender;
+		this.receiverInfo = reciever;
+		this.routeList = new ArrayList<NodeInfo>();
+		routeList.add(sender);
+		this.messageText = text;
+		int id = AppInfo.sentMessagesCount;
+		id++;
+		this.messageId = id;
+		AppInfo.sentMessagesCount = id;
 	}
 		
 	@Override
@@ -101,7 +113,7 @@ public abstract class BasicMessage implements Message {
 	@Override
 	public void makeMeASender() {
 //		TODO: srediti my servent info
-		NodeInfo newRouteItem = AppInfo.getInstance().getMyInfo();
+		NodeInfo newRouteItem = AppInfo.myInfo;
 		routeList.add(newRouteItem);
 	}
 	

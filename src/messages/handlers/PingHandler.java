@@ -16,9 +16,9 @@ public class PingHandler implements MessageHandler {
 	@Override
 	public void run() {
 		if (clientMessage.getMessageType() == MessageType.PING) {
-			AppInfo.getInstance().timestampedStandardPrint(clientMessage.toString());
+			AppInfo.timestampedStandardPrint(clientMessage.toString());
 		} else {
-			AppInfo.getInstance().timestampedErrorPrint("Ping handler got: " + clientMessage);
+			AppInfo.timestampedErrorPrint("Ping handler got: " + clientMessage);
 		}
 	}
 

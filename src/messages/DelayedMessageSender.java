@@ -38,7 +38,7 @@ public class DelayedMessageSender implements Runnable {
 		NodeInfo receiverInfo = messageToSend.getReceiverInfo();
 		
 		if (MessageUtil.MESSAGE_UTIL_PRINTING) {
-			AppInfo.getInstance().timestampedStandardPrint("Sending message " + messageToSend + " to " + receiverInfo.getIp() + ", port " + receiverInfo.getPort());
+			AppInfo.timestampedStandardPrint("Sending message " + messageToSend + " to " + receiverInfo.getIp() + ", port " + receiverInfo.getPort());
 		}
 		
 		try {
@@ -61,7 +61,7 @@ public class DelayedMessageSender implements Runnable {
 			
 			messageToSend.sendEffect();
 //				TODO: srediti
-			AppInfo.getInstance().timestampedStandardPrint("Message " + messageToSend + " sent to " + receiverInfo.getIp());
+			AppInfo.timestampedStandardPrint("Message " + messageToSend + " sent to " + receiverInfo.getIp());
 			
 		} catch (IOException e) {
 			BootstrapConfig.getInstance().timestampedErrorPrint("Couldn't send message: " + messageToSend.toString());

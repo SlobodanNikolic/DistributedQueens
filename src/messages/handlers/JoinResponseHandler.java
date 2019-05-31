@@ -3,7 +3,9 @@ package messages.handlers;
 import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import bootstrap.BootstrapWorker;
+import concurrent.Token;
 import messages.JoinMessage;
+import messages.JoinResponseMessage;
 import messages.Message;
 import messages.MessageType;
 import messages.MessageUtil;
@@ -18,36 +20,24 @@ public class JoinResponseHandler implements MessageHandler {
 		this.clientMessage = clientMessage;
 	}
 
+//	A message from bootstrap - join request response
 	@Override
 	public void run() {
 		if (clientMessage.getMessageType() == MessageType.JOIN_RESPONSE) {
-			
-			if(!AppInfo.getInstance().getMyInfo().isBootstrap()) {
-				
-//				Got a join response, with NodeInfo of the node that we need to contact
-				NodeInfo nodeToContact = clientMessage.getOriginalSenderInfo();
-				
-				if(nodeToContact != null) {
-//					TODO:
-//					Vec je postojao neko u chordu, kontaktiraj njega da ti kaze gde ces
-					System.out.println("Got a join response. Node to contact ip: " + nodeToContact.getIp()
-					+ " port: " + nodeToContact.getPort());
-					
-					PositionMessage positionMessage = new PositionMessage(nodeToContact);
-					MessageUtil.sendMessage(positionMessage);
-				}
-				else {
-//					TODO:
-//					Ti si prvi u chordu, uradi sta treba
-//					Treba postaviti tabelu suseda na prazno (nemamo susede)
-//					A to je vec postavljeno
-					System.out.println("Got a join response. First in chord!");
-				}				
+//			He either sent us a token (we were first) and an id, or he is sending us a 
+//			contact in the network. Either way, we should find our place and let bootstrap know
+//			when its finished
+			JoinResponseMessage message = (JoinResponseMessage)clientMessage;
+			if(((Token)message.getResponseObject()) != null) {
+				AppInfo.timestampedStandardPrint("We got a join response with " + ((Token)message.getResponseObject()));
+			}
+			else {
+				AppInfo.timestampedStandardPrint("We got a join response with a contact " + message.getOriginalSenderInfo().toString());
 				
 			}
 	
 		} else {
-			AppInfo.getInstance().timestampedErrorPrint("Join handler got: " + clientMessage);
+			AppInfo.timestampedErrorPrint("Join handler got: " + clientMessage);
 		}
 	}
 	

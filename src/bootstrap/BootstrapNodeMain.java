@@ -3,6 +3,7 @@ package bootstrap;
 import java.util.ArrayList;
 
 import app.AppInfo;
+import concurrent.Token;
 import node.CLIParser;
 import node.NodeInfo;
 
@@ -13,7 +14,9 @@ public class BootstrapNodeMain {
 		
 		BootstrapConfig.getInstance().readConfig("resources/bootstrap_properties.properties");
 		
-		System.out.println("BootstrapNodeMain: ip: " + AppInfo.getInstance().getMyInfo().getIp());
+		System.out.println("BootstrapNodeMain: ip: " + AppInfo.myInfo.getIp());
+		
+		AppInfo.myInfo.setToken(new Token(true));
 		
 		BootstrapWorker worker = new BootstrapWorker();
 		Thread workerThread = new Thread(worker);

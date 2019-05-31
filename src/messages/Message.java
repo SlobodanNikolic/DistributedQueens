@@ -64,5 +64,5 @@ public interface Message extends Serializable {
 	 */
 	void sendEffect();
 	
-	NodeInfo getResponseObject();
+	Object getResponseObject();
 }

@@ -41,8 +41,8 @@ public class PingCommand implements Command {
 		String[] argsArray = args.split(" ");
 		NodeInfo receiverInfo = new NodeInfo(argsArray[0], argsArray[1], 20, true);
 		
-		Thread t = new Thread(new PingWorker(AppInfo.getInstance().getMyInfo(),
-				AppInfo.getInstance().getMyInfo(), receiverInfo));
+		Thread t = new Thread(new PingWorker(AppInfo.myInfo,
+				AppInfo.myInfo, receiverInfo));
 		
 		t.start();
 		

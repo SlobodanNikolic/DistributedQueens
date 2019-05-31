@@ -19,7 +19,7 @@ public class NullHandler implements MessageHandler {
 	
 	@Override
 	public void run() {
-		AppInfo.getInstance().timestampedErrorPrint("Couldn't handle message: " + clientMessage);
+		AppInfo.timestampedErrorPrint("Couldn't handle message: " + clientMessage);
 	}
 
 }

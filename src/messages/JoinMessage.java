@@ -9,8 +9,8 @@ public class JoinMessage extends BasicMessage {
 	private static final long serialVersionUID = -333251402058492901L;
 	
 	public JoinMessage() {
-		super(MessageType.JOIN, AppInfo.getInstance().getMyInfo(), AppInfo.getInstance().getMyInfo(),
-				AppInfo.getInstance().getBootstrapInfo());
+		super(MessageType.JOIN, AppInfo.myInfo, AppInfo.myInfo,
+				AppInfo.bootstrapInfo);
 	}
 	
 	

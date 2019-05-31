@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import app.AppInfo;
 import bootstrap.BootstrapListener;
+import bootstrap.BootstrapWorker;
 import commands.Command;
 import commands.InfoCommand;
 import commands.JoinCommand;
@@ -34,10 +35,37 @@ import commands.PingCommand;
 public class CLIParser implements Runnable{
 
 	private volatile boolean working = true;
+	private SimpleListener listener;
+	private NodeWorker worker;
+	private BootstrapWorker bootstrap;
 	
 	private final List<Command> commandList;
 	
 	public CLIParser(SimpleListener listener) {
+		this.listener = listener;
+		
+		this.commandList = new ArrayList<>();
+		
+		commandList.add(new InfoCommand());
+		commandList.add(new PingCommand());
+		commandList.add(new JoinCommand());
+	}
+	
+	public CLIParser(SimpleListener listener, NodeWorker worker) {
+		this.listener = listener;
+		this.worker = worker;
+		
+		this.commandList = new ArrayList<>();
+		
+		commandList.add(new InfoCommand());
+		commandList.add(new PingCommand());
+		commandList.add(new JoinCommand());
+	}
+	
+	public CLIParser(SimpleListener listener, BootstrapWorker worker) {
+		this.listener = listener;
+		this.bootstrap = worker;
+		
 		this.commandList = new ArrayList<>();
 		
 		commandList.add(new InfoCommand());

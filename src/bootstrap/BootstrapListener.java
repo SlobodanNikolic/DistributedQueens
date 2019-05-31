@@ -33,7 +33,7 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 		
 		ServerSocket listenerSocket = null;
 		try {
-			listenerSocket = new ServerSocket(Integer.parseInt(AppInfo.getInstance().getMyInfo().getPort()));
+			listenerSocket = new ServerSocket(Integer.parseInt(AppInfo.myInfo.getPort()));
 			
 			System.out.println(listenerSocket.getInetAddress().toString());
 		} catch (IOException e) {
@@ -72,7 +72,7 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 				threadPool.submit(messageHandler);
 			} catch (SocketTimeoutException timeoutEx) {
 				//Uncomment the next line to see that we are waking up every second.
-				AppInfo.getInstance().timestampedStandardPrint("Waiting...");
+				AppInfo.timestampedStandardPrint("Waiting...");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
