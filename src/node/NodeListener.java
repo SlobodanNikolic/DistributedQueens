@@ -9,10 +9,13 @@ import java.util.concurrent.Executors;
 
 import messages.Message;
 import messages.MessageUtil;
+import messages.handlers.ConnectionCallbackHandler;
+import messages.handlers.ConnectionHandler;
 import messages.handlers.JoinResponseHandler;
 import messages.handlers.MessageHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
+import messages.handlers.TokenRequestHandler;
 
 
 public class NodeListener extends SimpleListener implements Runnable {
@@ -64,6 +67,15 @@ public class NodeListener extends SimpleListener implements Runnable {
 					break;
 				case JOIN_RESPONSE:
 					messageHandler = new JoinResponseHandler(message);
+					break;
+				case CONNECT:
+					messageHandler = new ConnectionHandler(message);
+					break;
+				case CONNECTION_CALLBACK:
+					messageHandler = new ConnectionCallbackHandler(message);
+					break;
+				case TOKEN_REQUEST:
+					messageHandler = new TokenRequestHandler(message);
 					break;
 				}
 				

@@ -38,7 +38,7 @@ public class DelayedMessageSender implements Runnable {
 		NodeInfo receiverInfo = messageToSend.getReceiverInfo();
 		
 		if (MessageUtil.MESSAGE_UTIL_PRINTING) {
-			AppInfo.timestampedStandardPrint("Sending message " + messageToSend + " to " + receiverInfo.getIp() + ", port " + receiverInfo.getPort());
+			AppInfo.timestampedStandardPrint("Sending message " + messageToSend + " to " + receiverInfo.getId() + ", " + receiverInfo.getIp() + ", port " + receiverInfo.getPort());
 		}
 		
 		try {

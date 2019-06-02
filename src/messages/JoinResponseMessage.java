@@ -9,14 +9,17 @@ public class JoinResponseMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
 	private Token token;
+	private int id = -1;
 	
 	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, String id) {
-		super(MessageType.JOIN_RESPONSE, contact, AppInfo.bootstrapInfo, receiver);
+		super(MessageType.JOIN_RESPONSE, contact, AppInfo.bootstrapInfo, receiver, id);
+		this.id = Integer.parseInt(id);
 	}
 	
-	public JoinResponseMessage(NodeInfo receiver, NodeInfo contact, Token token, String id) {
-		super(MessageType.JOIN_RESPONSE, contact, AppInfo.bootstrapInfo, receiver);
+	public JoinResponseMessage(NodeInfo receiver, String id, Token token) {
+		super(MessageType.JOIN_RESPONSE, null, AppInfo.bootstrapInfo, receiver, id);
 		this.token = token;
+		this.id = Integer.parseInt(id);
 	}
 	
 	
@@ -47,6 +50,22 @@ public class JoinResponseMessage extends BasicMessage {
 	public Object getResponseObject() {
 		// TODO Auto-generated method stub
 		return this.token;
+	}
+
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

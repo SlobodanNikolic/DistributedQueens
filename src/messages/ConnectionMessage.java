@@ -1,17 +1,20 @@
 package messages;
 
+import java.util.ArrayList;
+
 import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import node.NodeInfo;
 
-public class TokenRequest extends BasicMessage {
+public class ConnectionMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
 	
-	public TokenRequest(NodeInfo originalSender, NodeInfo sender, int sequenceNumber, NodeInfo receiver) {
-		super(MessageType.TOKEN_REQUEST, originalSender, sender, receiver, sequenceNumber+"");		
+	
+	public ConnectionMessage(NodeInfo originalSender, NodeInfo sender, NodeInfo receiver, String forWho) {
+		super(MessageType.CONNECT, originalSender, sender, receiver, forWho);
 	}
-		
+	
 	@Override
 	public void sendEffect() {
 		

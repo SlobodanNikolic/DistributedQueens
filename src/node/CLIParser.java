@@ -46,7 +46,7 @@ public class CLIParser implements Runnable{
 		
 		this.commandList = new ArrayList<>();
 		
-		commandList.add(new InfoCommand());
+		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 	}
@@ -57,7 +57,7 @@ public class CLIParser implements Runnable{
 		
 		this.commandList = new ArrayList<>();
 		
-		commandList.add(new InfoCommand());
+		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 	}
@@ -68,7 +68,7 @@ public class CLIParser implements Runnable{
 		
 		this.commandList = new ArrayList<>();
 		
-		commandList.add(new InfoCommand());
+		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 	}

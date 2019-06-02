@@ -112,9 +112,19 @@ public abstract class BasicMessage implements Message {
 	 */
 	@Override
 	public void makeMeASender() {
-//		TODO: srediti my servent info
+//		TODO: Ovo ne valja. Referenca pokazuje i na original sender info.
 		NodeInfo newRouteItem = AppInfo.myInfo;
 		routeList.add(newRouteItem);
+		this.senderInfo.setId(AppInfo.myInfo.getId());
+		this.senderInfo.setIdBase3(AppInfo.myInfo.getIdBase3());
+		this.senderInfo.setIp(AppInfo.myInfo.getIp());
+		this.senderInfo.setPort(AppInfo.myInfo.getPort());
+		this.senderInfo.setLimit(AppInfo.myInfo.getLimit());
+		this.senderInfo.setNeighbors(AppInfo.myInfo.getNeighbors());
+		this.senderInfo.setNeighborsToContact(AppInfo.myInfo.getNeighborsToContact());
+		this.senderInfo.setRequestsReceived(AppInfo.myInfo.getRequestsReceived());
+		this.senderInfo.setRequestsSentCount(AppInfo.myInfo.getRequestsSentCount());
+		this.senderInfo.setSequenceCounter(AppInfo.myInfo.getSequenceCounter());
 	}
 	
 	/**
@@ -122,22 +132,19 @@ public abstract class BasicMessage implements Message {
 	 * Use this when you want to send a message to multiple neighbors, or when resending.
 	 */
 	@Override
-	public Message changeReceiver(Integer newReceiverId) {
-//		TODO: srediti
-//		if (AppConfig.myServentInfo.getNeighbors().contains(newReceiverId)) {
-//			NodeInfo newReceiverInfo = AppConfig.getInfoById(newReceiverId);
-//			
-//			Message toReturn = new BasicMessage(getMessageType(), getOriginalSenderInfo(),
-//					newReceiverInfo, isWhite(), getRoute(), getMessageText(), getMessageId());
-//			
-//			return toReturn;
-//		} else {
-//			AppConfig.timestampedErrorPrint("Trying to make a message for " + newReceiverId + " who is not a neighbor.");
-//			
-//			return null;
-//		}
-		return null;
+	public Message changeReceiver(NodeInfo receiver) {
+		this.receiverInfo.setId(receiver.getId());
+		this.receiverInfo.setIdBase3(receiver.getIdBase3());
+		this.receiverInfo.setIp(receiver.getIp());
+		this.receiverInfo.setPort(receiver.getPort());
+		this.receiverInfo.setLimit(receiver.getLimit());
+		this.receiverInfo.setNeighbors(receiver.getNeighbors());
+		this.receiverInfo.setNeighborsToContact(receiver.getNeighborsToContact());
+		this.receiverInfo.setRequestsReceived(receiver.getRequestsReceived());
+		this.receiverInfo.setRequestsSentCount(receiver.getRequestsSentCount());
+		this.receiverInfo.setSequenceCounter(receiver.getSequenceCounter());
 		
+		return null;
 	}
 	
 	

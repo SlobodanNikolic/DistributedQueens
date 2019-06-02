@@ -1,0 +1,65 @@
+package helpers;
+
+import java.util.ArrayList;
+
+import sun.security.util.AuthResources_ko;
+
+public class Functions {
+	
+	public static ArrayList<Integer> whoToContact(int myId) {
+		int[] base3Id = decToBase3(myId);
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+//		Da li sam ja 0? Ako jesam, formiram svoj komsiluk. 
+//		Treba da nadjem one koji se od mene razlikuju po prvoj cifri koja nije 0
+//		Nadjem tu cifru svaki put kad je dekrementiram, posaljem tom id-ju poruku za spajanje		
+//		Kad dodjem do 0, saljem i njemu i stajem.
+		if(base3Id[Constants.ID_MAX_DIGITS-1]==0) {
+			for(int i = Constants.ID_MAX_DIGITS-1; i>=0; i--) {
+				if(base3Id[i]==0)
+					continue;
+				else {
+					while(base3Id[i]>0) {
+						base3Id[i]--;
+						result.add(base3ToDec(base3Id));
+					}
+					return result;
+				}
+			}
+		}
+//		Ako nisam nula, dekrementiram najmanje bitnu cifru do nule i svima saljem poruku za spajanje.
+		else {
+			while(base3Id[Constants.ID_MAX_DIGITS-1]!=0) {
+				base3Id[Constants.ID_MAX_DIGITS-1]--;
+				result.add(base3ToDec(base3Id));
+			}
+			return result;
+		}	
+		return null;
+	}
+	
+	public static int[] decToBase3(int myId) {
+		
+		int[] base3Id = new int[Constants.ID_MAX_DIGITS];
+		int currentIndex = Constants.ID_MAX_DIGITS-1;
+		while(true) {
+			int left = myId%3;
+			base3Id[currentIndex--] = left;
+			myId = myId/3;
+			if(myId == 0) {
+				break;
+			}
+		}
+		
+		return base3Id;
+	}
+	
+	public static int base3ToDec(int[] base3Id) {
+		int result = 0;
+		for(int i = Constants.ID_MAX_DIGITS-1, j=0; i>=0; i--, j++) {
+			result += base3Id[i]*((int) java.lang.Math.pow(3, j));
+		}
+		return result;
+	}
+
+}

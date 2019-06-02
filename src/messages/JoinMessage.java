@@ -30,9 +30,9 @@ public class JoinMessage extends BasicMessage {
 
 		
 		return "Message: " + getMessageType()
-			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getPort() 
-			+ "|" + getSenderInfo().getPort() + "|" + getReceiverInfo().getPort() + "|" 
-			+ getMessageText() + "|";
+		+ "|" + getOriginalSenderInfo().getId() 
+		+ "|" + getSenderInfo().getId() + "|" + getReceiverInfo().getId() + "|" 
+		+ getMessageText() + "|";
 	}
 
 	@Override

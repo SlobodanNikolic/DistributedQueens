@@ -1,18 +1,21 @@
 package messages;
 
-import app.AppInfo;
 import bootstrap.BootstrapConfig;
 import node.NodeInfo;
 
-public class PositionMessage extends BasicMessage {
+public class PositionSetMessage extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
 	
-	public PositionMessage(NodeInfo receiver) {
-		super(MessageType.POSITION, AppInfo.myInfo, AppInfo.myInfo, 
-				receiver);
+	public PositionSetMessage(NodeInfo sender, NodeInfo receiver) {
+		super(MessageType.POSITION_SET, sender, sender, receiver);
 	}
 	
+	/**
+	 * We want to take away our amount exactly as we are sending, so our snapshots don't mess up.
+	 * This method is invoked by the sender just before sending, and with a lock that guarantees
+	 * that we are white when we are doing this in Chandy-Lamport.
+	 */
 	@Override
 	public void sendEffect() {
 		
@@ -29,9 +32,9 @@ public class PositionMessage extends BasicMessage {
 
 		
 		return "Message: " + getMessageType()
-			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getPort() 
-			+ "|" + getSenderInfo().getPort() + "|" + getReceiverInfo().getPort() + "|" 
-			+ getMessageText() + "|";
+		+ "|" + getOriginalSenderInfo().getId() 
+		+ "|" + getSenderInfo().getId() + "|" + getReceiverInfo().getId() + "|" 
+		+ getMessageText() + "|";
 	}
 
 	@Override

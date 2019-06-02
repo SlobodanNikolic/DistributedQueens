@@ -35,9 +35,9 @@ public class TokenMessage extends BasicMessage {
 
 		
 		return "Message: " + getMessageType()
-			+ "|" + getMessageId() + "|" + getOriginalSenderInfo().getId() 
-			+ "|" + getSenderInfo().getId() + "|" + getReceiverInfo().getId() + "|" 
-			+ getMessageText() + "|";
+		+ "|" + getOriginalSenderInfo().getId() 
+		+ "|" + getSenderInfo().getId() + "|" + getReceiverInfo().getId() + "|" 
+		+ getMessageText() + "|";
 	}
 
 	@Override

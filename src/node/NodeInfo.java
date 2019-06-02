@@ -17,13 +17,16 @@ public class NodeInfo implements Serializable{
 	private String hash;
 	private int limit;
 	private int id;
-	private Integer[] idBase3 = new Integer[Constants.ID_MAX_DIGITS];
+	private int[] idBase3 = new int[Constants.ID_MAX_DIGITS];
 	private boolean isBootstrap = false;
 	private int requestsSentCount = 0;
 	private Token token = new Token(false);
-	private ArrayList<Integer> neighbors = new ArrayList<Integer>();
+	private ArrayList<NodeInfo> neighbors = new ArrayList<NodeInfo>();
 		
 	private Integer[] sequenceCounter = new Integer[Constants.MAX_NODES + 1];
+	private ArrayList<Integer> neighborsToContact = new ArrayList<Integer>();
+	
+	
 	
 	public NodeInfo() {
 		
@@ -37,6 +40,32 @@ public class NodeInfo implements Serializable{
 		this.isBootstrap = b;
 		this.hash = "no_hash";
 		this.id = -1;
+	}
+	
+	public void addNeighbourToContact(int neighbourId) {
+		neighborsToContact.add(neighbourId);
+	}
+	
+	public void removeNeighbourToContact(int neighbourId) {
+		
+		for(int i = 0; i < neighborsToContact.size(); i++) {
+			if(neighborsToContact.get(i) == neighbourId) {
+				neighborsToContact.remove(i);
+			}
+		}
+	}
+	
+	public void addNeighbour(NodeInfo n) {
+		neighbors.add(n);
+	}
+	
+	public void removeNeighbour(NodeInfo n) {
+		
+		for(int i = 0; i < neighbors.size(); i++) {
+			if(neighbors.get(i).getId() == n.getId()) {
+				neighbors.remove(i);
+			}
+		}
 	}
 	
 	public void setSequence(int id) {
@@ -96,11 +125,11 @@ public class NodeInfo implements Serializable{
 		this.id = id;
 	}
 
-	public Integer[] getIdBase3() {
+	public int[] getIdBase3() {
 		return idBase3;
 	}
 
-	public void setIdBase3(Integer[] idBase3) {
+	public void setIdBase3(int[] idBase3) {
 		this.idBase3 = idBase3;
 	}
 
@@ -130,11 +159,11 @@ public class NodeInfo implements Serializable{
 		this.token = token;
 	}
 
-	public ArrayList<Integer> getNeighbors() {
+	public ArrayList<NodeInfo> getNeighbors() {
 		return neighbors;
 	}
 
-	public void setNeighbors(ArrayList<Integer> neighbors) {
+	public void setNeighbors(ArrayList<NodeInfo> neighbors) {
 		this.neighbors = neighbors;
 	}
 
@@ -144,5 +173,13 @@ public class NodeInfo implements Serializable{
 
 	public void setSequenceCounter(Integer[] sequenceCounter) {
 		this.sequenceCounter = sequenceCounter;
+	}
+
+	public ArrayList<Integer> getNeighborsToContact() {
+		return neighborsToContact;
+	}
+
+	public void setNeighborsToContact(ArrayList<Integer> neighborsToContact) {
+		this.neighborsToContact = neighborsToContact;
 	}
 }

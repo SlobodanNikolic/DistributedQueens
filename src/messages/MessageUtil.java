@@ -35,7 +35,7 @@ public class MessageUtil {
 			ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 	
 			clientMessage = (Message) ois.readObject();
-			AppInfo.timestampedStandardPrint("Reading message. sender info: " + clientMessage.getSenderInfo().getPort());
+			AppInfo.timestampedStandardPrint("Reading message. sender info: " + clientMessage.getSenderInfo().getId());
 			
 			socket.close();
 		} catch (IOException e) {

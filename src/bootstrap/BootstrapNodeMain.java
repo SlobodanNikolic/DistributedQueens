@@ -26,7 +26,7 @@ public class BootstrapNodeMain {
 		Thread listenerThread = new Thread(listener);
 		listenerThread.start();
 		
-		CLIParser parser = new CLIParser(listener);
+		CLIParser parser = new CLIParser(listener, worker);
 		Thread parserThread = new Thread(parser);
 		parserThread.start();
 		

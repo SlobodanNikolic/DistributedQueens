@@ -14,6 +14,7 @@ import messages.handlers.JoinHandler;
 import messages.handlers.MessageHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
+import messages.handlers.PositionSetHandler;
 import node.SimpleListener;
 
 
@@ -66,6 +67,9 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 					break;
 				case JOIN:
 					messageHandler = new JoinHandler(message, bootstrap);
+					break;
+				case POSITION_SET:
+					messageHandler = new PositionSetHandler(message, bootstrap);
 					break;
 				}
 				

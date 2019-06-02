@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 
@@ -20,7 +21,7 @@ public class AppInfo {
 	public static int sentMessagesCount = 0;
 	public static int receivedMessagesCount = 0;
 	
-	public static Object joinLock = new Object();
+	public static final AtomicBoolean joinLock = new AtomicBoolean(true);
 	
 	public AppInfo() {
 		

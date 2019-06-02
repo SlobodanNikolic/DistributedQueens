@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import app.AppInfo;
 import concurrent.Token;
 import node.NodeInfo;
 
@@ -29,11 +30,8 @@ public class BootstrapWorker implements Runnable{
 	}
 	
 	public NodeInfo addNode(NodeInfo newCookie) {
-//		Q: ovde treba napraviti hash?
-//		Q: da li treba da bude zakljucano dodavanje i ostalo,
-//		sve dok se cvor ne smesti?
-		
-				
+		nodes.add(newCookie);
+		AppInfo.timestampedStandardPrint("Node with id " + newCookie.getId() + " added.");
 		return newCookie;
 	}
 	
