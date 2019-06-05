@@ -20,6 +20,7 @@ public class AppInfo {
 	public static NodeInfo bootstrapInfo;
 	public static int sentMessagesCount = 0;
 	public static int receivedMessagesCount = 0;
+	public static int nodeCount = 0;
 	
 	public static final AtomicBoolean joinLock = new AtomicBoolean(true);
 	

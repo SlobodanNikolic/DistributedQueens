@@ -24,6 +24,7 @@ public class NodeMain {
 		Thread parserThread = new Thread(parser);
 		parserThread.start();
 		
+		listener.setCli(parser);
 		
 	}
 	

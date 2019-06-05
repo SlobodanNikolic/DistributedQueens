@@ -10,6 +10,8 @@ import java.util.concurrent.Executors;
 import app.AppInfo;
 import messages.Message;
 import messages.MessageUtil;
+import messages.handlers.ExitBootstrapHandler;
+import messages.handlers.ExitRequestHandler;
 import messages.handlers.JoinHandler;
 import messages.handlers.MessageHandler;
 import messages.handlers.NullHandler;
@@ -70,6 +72,12 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 					break;
 				case POSITION_SET:
 					messageHandler = new PositionSetHandler(message, bootstrap);
+					break;
+				case EXIT_REQUEST:
+					messageHandler = new ExitRequestHandler(message, bootstrap);
+					break;
+				case EXIT_GRANTED:
+					messageHandler = new ExitBootstrapHandler(message, bootstrap);
 					break;
 				}
 				

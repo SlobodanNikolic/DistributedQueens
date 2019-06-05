@@ -19,8 +19,7 @@ public class ConnectionCallbackHandler implements MessageHandler {
 
 	@Override
 	public void run() {
-//		TODO: Hendleri za poruke treba da imaju lockove takodje, da ne mogu da prekidaju jedan drugog
-//		Nego samo jedan hendler u isto vreme. Definitivno da.
+
 		
 		if (clientMessage.getMessageType() == MessageType.CONNECTION_CALLBACK) {
 			ConnectionCallbackMessage message = (ConnectionCallbackMessage)clientMessage;

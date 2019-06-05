@@ -9,22 +9,34 @@ import java.util.concurrent.Executors;
 
 import messages.Message;
 import messages.MessageUtil;
+import messages.handlers.ConnectionBreakHandler;
+import messages.handlers.ConnectionBrokenHandler;
 import messages.handlers.ConnectionCallbackHandler;
 import messages.handlers.ConnectionHandler;
+import messages.handlers.DataChangeConfirmHandler;
+import messages.handlers.DataChangeHandler;
+import messages.handlers.ExitAcceptHandler;
+import messages.handlers.ExitGrantHandler;
 import messages.handlers.JoinResponseHandler;
 import messages.handlers.MessageHandler;
+import messages.handlers.NodeCountHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
+import messages.handlers.SwitchPlacesHandler;
 import messages.handlers.TokenRequestHandler;
 
 
 public class NodeListener extends SimpleListener implements Runnable {
 
-//	TODO: izmeniti - work stealing
-	private final ExecutorService threadPool = Executors.newWorkStealingPool();
+	private final ExecutorService threadPool = Executors.newCachedThreadPool();
 		
 	private Boolean working = true;
 	private NodeWorker worker;
+	private CLIParser cli;
+	
+	public void setCli(CLIParser cli) {
+		this.cli = cli;
+	}
 	
 	public NodeListener(NodeWorker worker) {
 		this.worker = worker;
@@ -78,6 +90,30 @@ public class NodeListener extends SimpleListener implements Runnable {
 				case TOKEN_REQUEST:
 					messageHandler = new TokenRequestHandler(message);
 					break;
+				case NODE_COUNT:
+					messageHandler = new NodeCountHandler(message);
+					break;
+				case EXIT_ACCEPT:
+					messageHandler = new ExitAcceptHandler(message);
+					break;
+				case SWITCH:
+					messageHandler = new SwitchPlacesHandler(message);
+					break;
+				case CONNECTION_BREAK:
+					messageHandler = new ConnectionBreakHandler(message);
+					break;
+				case DATA_CHANGE:
+					messageHandler = new DataChangeHandler(message);
+					break;
+				case DATA_CHANGE_CONFIRM:
+					messageHandler = new DataChangeConfirmHandler(message);
+					break;
+				case CONNECTION_BROKEN:
+					messageHandler = new ConnectionBrokenHandler(message);
+					break;
+				case EXIT_GRANTED:
+					messageHandler = new ExitGrantHandler(message, this);
+					break;
 				}
 				
 				threadPool.submit(messageHandler);
@@ -91,6 +127,27 @@ public class NodeListener extends SimpleListener implements Runnable {
 	}
 
 	public void stop() {
+		this.threadPool.shutdown();
 		this.working = false;
+	}
+
+	public Boolean getWorking() {
+		return working;
+	}
+
+	public void setWorking(Boolean working) {
+		this.working = working;
+	}
+
+	public NodeWorker getWorker() {
+		return worker;
+	}
+
+	public void setWorker(NodeWorker worker) {
+		this.worker = worker;
+	}
+
+	public CLIParser getCli() {
+		return cli;
 	}
 }

@@ -18,7 +18,6 @@ public class BootstrapWorker implements Runnable{
 		
 	}
 	
-	
 	public NodeInfo randomNode() {
 		Random rand = new Random();
 		int randomInt = rand.nextInt(nodes.size());
@@ -27,6 +26,20 @@ public class BootstrapWorker implements Runnable{
 	
 	public int getNodeCount() {
 		return nodes.size();
+	}
+	
+	public void changeNodeInfo(NodeInfo oldInfo, NodeInfo newInfo) {
+		for (NodeInfo node : nodes) {
+			if(node.getId() == oldInfo.getId()) {
+				node.setIp(newInfo.getIp());
+				node.setPort(newInfo.getPort());
+				return;
+			}
+		}
+	}
+	
+	public void removeLastNode() {
+		nodes.remove(nodes.size()-1);
 	}
 	
 	public NodeInfo addNode(NodeInfo newCookie) {
@@ -47,6 +60,16 @@ public class BootstrapWorker implements Runnable{
 //			Vrti se
 		}
 		
+	}
+
+
+	public ArrayList<NodeInfo> getNodes() {
+		return nodes;
+	}
+
+
+	public void setNodes(ArrayList<NodeInfo> nodes) {
+		this.nodes = nodes;
 	}
 
 	

@@ -6,6 +6,7 @@ import bootstrap.BootstrapWorker;
 import messages.Message;
 import messages.MessageType;
 import messages.MessageUtil;
+import messages.NodeCountMessage;
 import messages.PositionSetMessage;
 import node.NodeInfo;
 
@@ -35,6 +36,10 @@ public class PositionSetHandler implements MessageHandler {
 				AppInfo.timestampedStandardPrint("Got a position set message from " + message.getSenderInfo().getId());
 
 				bootstrap.addNode(setNode);
+				for (NodeInfo node: bootstrap.getNodes()) {
+					NodeCountMessage nodeCountMess = new NodeCountMessage(AppInfo.myInfo, node, bootstrap.getNodeCount()+"");
+					MessageUtil.sendMessage(nodeCountMess);
+				}
 				AppInfo.joinLock.set(true);
 			}
 			else {

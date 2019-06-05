@@ -20,13 +20,18 @@ public class NodeInfo implements Serializable{
 	private int id;
 	private int[] idBase3 = new int[Constants.ID_MAX_DIGITS];
 	private boolean isBootstrap = false;
+	private NodeInfo exitNode;
+	
 	private int requestsSentCount = 0;
 	private Token token = new Token(false);
+	
 	private CopyOnWriteArrayList<NodeInfo> neighbors = new CopyOnWriteArrayList<NodeInfo>();
 		
 	private Integer[] sequenceCounter = new Integer[Constants.MAX_NODES + 1];
 	private CopyOnWriteArrayList<Integer> neighborsToContact = new CopyOnWriteArrayList<Integer>();
-	
+	private CopyOnWriteArrayList<Integer> nodesForDataChange = new CopyOnWriteArrayList<Integer>();
+	private CopyOnWriteArrayList<Integer> nodesForConnectionBrake = new CopyOnWriteArrayList<Integer>();
+
 	
 	
 	public NodeInfo() {
@@ -56,7 +61,35 @@ public class NodeInfo implements Serializable{
 		}
 	}
 	
+
+	public void addDataChangeNode(int neighbourId) {
+		nodesForDataChange.add(neighbourId);
+	}
+	
+	public void removeDataChangeNode(int neighbourId) {
+		
+		for(int i = 0; i < nodesForDataChange.size(); i++) {
+			if(nodesForDataChange.get(i) == neighbourId) {
+				nodesForDataChange.remove(i);
+			}
+		}
+	}
+	
+	public void addConnBreakNode(int neighbourId) {
+		nodesForConnectionBrake.add(neighbourId);
+	}
+	
+	public void removeConnBreakNode(int neighbourId) {
+		
+		for(int i = 0; i < nodesForConnectionBrake.size(); i++) {
+			if(nodesForConnectionBrake.get(i) == neighbourId) {
+				nodesForConnectionBrake.remove(i);
+			}
+		}
+	}
+	
 	public void addNeighbour(NodeInfo n) {
+	
 		neighbors.add(n);
 	}
 	
@@ -68,6 +101,28 @@ public class NodeInfo implements Serializable{
 			}
 		}
 	}
+	
+	public void changeNeighbourData(NodeInfo oldData, NodeInfo newData) {
+		for (NodeInfo neighbour : neighbors) {
+			if(neighbour.getId() == oldData.getId()) {
+				neighbour.setIp(newData.getIp());
+				neighbour.setPort(newData.getPort());
+			}
+		}
+	}
+	
+	public void clearNeighbors() {
+		neighbors.clear();
+	}
+	
+	public void setExitNode(NodeInfo exitNode) {
+		this.exitNode = exitNode;
+	}
+	
+	public NodeInfo getExitNode() {
+		return this.exitNode;
+	}
+	
 	
 	public void setSequence(int id) {
 		sequenceCounter[id]++;
@@ -182,5 +237,21 @@ public class NodeInfo implements Serializable{
 
 	public void setNeighborsToContact(CopyOnWriteArrayList<Integer> neighborsToContact) {
 		this.neighborsToContact = neighborsToContact;
+	}
+	
+	public CopyOnWriteArrayList<Integer> getDataChangeNodes() {
+		return nodesForDataChange;
+	}
+
+	public void setDataChangeNodes(CopyOnWriteArrayList<Integer> nodesForDataChange) {
+		this.nodesForDataChange = nodesForDataChange;
+	}
+	
+	public CopyOnWriteArrayList<Integer> getConnBreakNodes() {
+		return nodesForConnectionBrake;
+	}
+
+	public void setConnBreakNodes(CopyOnWriteArrayList<Integer> nodesForConnBreak) {
+		this.nodesForConnectionBrake = nodesForConnBreak;
 	}
 }

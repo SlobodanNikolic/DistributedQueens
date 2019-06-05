@@ -8,6 +8,7 @@ import app.AppInfo;
 import bootstrap.BootstrapListener;
 import bootstrap.BootstrapWorker;
 import commands.Command;
+import commands.ExitCommand;
 import commands.InfoCommand;
 import commands.JoinCommand;
 import commands.PingCommand;
@@ -49,6 +50,8 @@ public class CLIParser implements Runnable{
 		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
+		commandList.add(new ExitCommand());
+
 	}
 	
 	public CLIParser(SimpleListener listener, NodeWorker worker) {
@@ -60,6 +63,8 @@ public class CLIParser implements Runnable{
 		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
+		commandList.add(new ExitCommand());
+
 	}
 	
 	public CLIParser(SimpleListener listener, BootstrapWorker worker) {
@@ -71,6 +76,7 @@ public class CLIParser implements Runnable{
 		commandList.add(new InfoCommand(bootstrap));
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
+		commandList.add(new ExitCommand());
 	}
 	
 	@Override
@@ -110,6 +116,7 @@ public class CLIParser implements Runnable{
 	}
 	
 	public void stop() {
+		AppInfo.timestampedStandardPrint("Stoping CLI Parser");
 		this.working = false;
 		
 	}
