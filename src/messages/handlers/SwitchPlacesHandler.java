@@ -62,12 +62,14 @@ public class SwitchPlacesHandler implements MessageHandler {
 				
 //				Saljem change data poruke
 				for (NodeInfo node : originalSender.getNeighbors()) {
-					ChangeDataMessage changeDatMess = new ChangeDataMessage(originalSender, AppInfo.myInfo, node);
-
-//					Moram da ih stavim u neku listu i cekam odgovore od njih. Kad stignu odgovori, onda cu da zamenim svoj id
-					AppInfo.myInfo.addDataChangeNode(node.getId());
-					
-					MessageUtil.sendMessage(changeDatMess);
+					if(node.getId() != AppInfo.myInfo.getId()) {
+						ChangeDataMessage changeDatMess = new ChangeDataMessage(originalSender, AppInfo.myInfo, node);
+	
+	//					Moram da ih stavim u neku listu i cekam odgovore od njih. Kad stignu odgovori, onda cu da zamenim svoj id
+						AppInfo.myInfo.addDataChangeNode(node.getId());
+						
+						MessageUtil.sendMessage(changeDatMess);
+					}
 				}
 				
 //				Saljem connection break poruke svojim susedima

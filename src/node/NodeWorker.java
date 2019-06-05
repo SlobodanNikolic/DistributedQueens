@@ -12,4 +12,7 @@ public class NodeWorker implements Runnable{
 		}
 	}
 
+	public void stop() {
+		running = false;
+	}
 }

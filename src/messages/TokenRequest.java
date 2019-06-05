@@ -8,8 +8,8 @@ public class TokenRequest extends BasicMessage {
 
 	private static final long serialVersionUID = -333251402058492901L;
 	
-	public TokenRequest(NodeInfo originalSender, NodeInfo sender, int sequenceNumber, NodeInfo receiver) {
-		super(MessageType.TOKEN_REQUEST, originalSender, sender, receiver, sequenceNumber+"");		
+	public TokenRequest(NodeInfo originalSender, NodeInfo sender, int forWho, NodeInfo receiver) {
+		super(MessageType.TOKEN_REQUEST, originalSender, sender, receiver, forWho+"");		
 	}
 		
 	@Override

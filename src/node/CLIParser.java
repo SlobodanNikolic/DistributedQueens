@@ -12,6 +12,7 @@ import commands.ExitCommand;
 import commands.InfoCommand;
 import commands.JoinCommand;
 import commands.PingCommand;
+import commands.StartCommand;
 
 
 
@@ -51,6 +52,7 @@ public class CLIParser implements Runnable{
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 		commandList.add(new ExitCommand());
+		commandList.add(new StartCommand());
 
 	}
 	
@@ -64,7 +66,8 @@ public class CLIParser implements Runnable{
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 		commandList.add(new ExitCommand());
-
+		commandList.add(new StartCommand());
+		
 	}
 	
 	public CLIParser(SimpleListener listener, BootstrapWorker worker) {
@@ -77,6 +80,7 @@ public class CLIParser implements Runnable{
 		commandList.add(new PingCommand());
 		commandList.add(new JoinCommand());
 		commandList.add(new ExitCommand());
+		commandList.add(new StartCommand());
 	}
 	
 	@Override

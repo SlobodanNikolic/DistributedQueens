@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import concurrent.Token;
 import helpers.Constants;
@@ -27,15 +30,39 @@ public class NodeInfo implements Serializable{
 	
 	private CopyOnWriteArrayList<NodeInfo> neighbors = new CopyOnWriteArrayList<NodeInfo>();
 		
+	public ConcurrentHashMap<Integer, Boolean> getJobsRunning() {
+		return jobsRunning;
+	}
+	
+	public int incrementRequestCounter() {
+		requestsSentCount++;
+		sequenceCounter[id]++;
+		return requestsSentCount;
+	}
+
+	public void setJobsRunning(ConcurrentHashMap<Integer, Boolean> jobsRunning) {
+		this.jobsRunning = jobsRunning;
+	}
+
 	private Integer[] sequenceCounter = new Integer[Constants.MAX_NODES + 1];
 	private CopyOnWriteArrayList<Integer> neighborsToContact = new CopyOnWriteArrayList<Integer>();
 	private CopyOnWriteArrayList<Integer> nodesForDataChange = new CopyOnWriteArrayList<Integer>();
 	private CopyOnWriteArrayList<Integer> nodesForConnectionBrake = new CopyOnWriteArrayList<Integer>();
 
-	
+	private ConcurrentHashMap<Integer, Boolean> jobsRunning = new ConcurrentHashMap<Integer, Boolean>(); 
 	
 	public NodeInfo() {
-		
+		for(int i = 0; i < Constants.MAX_NODES; i++) {
+			sequenceCounter[i]=0;
+		}
+	}
+	
+	public void addJob(int tableSize) {
+		if(jobsRunning.containsKey(tableSize)) {
+			
+		}else {
+			jobsRunning.put(tableSize, true);
+		}
 	}
 	
 	public NodeInfo(String ip, String port, int limit, boolean b) {
@@ -61,6 +88,9 @@ public class NodeInfo implements Serializable{
 		}
 	}
 	
+	public void addRequest() {
+		requestsSentCount++;
+	}
 
 	public void addDataChangeNode(int neighbourId) {
 		nodesForDataChange.add(neighbourId);

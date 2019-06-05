@@ -36,6 +36,7 @@ public class ExitGrantHandler implements MessageHandler {
 		if (clientMessage.getMessageType() == MessageType.EXIT_GRANTED) {
 			ExitGrantedMessage message = (ExitGrantedMessage)clientMessage;
 			listener.getCli().stop();
+			listener.getWorker().stop();
 			listener.stop();
 		} else {
 			AppInfo.timestampedErrorPrint("Exit granted handler got: " + clientMessage);
