@@ -2,6 +2,7 @@ package messages.handlers;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.sun.beans.editors.IntegerEditor;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
@@ -166,7 +167,7 @@ public class ConnectionHandler implements MessageHandler {
 	public ArrayList<NodeInfo> getZeroNeighbors() {
 		
 		ArrayList<NodeInfo> result = new ArrayList<NodeInfo>();
-		ArrayList<NodeInfo> neighbors = AppInfo.myInfo.getNeighbors();
+		CopyOnWriteArrayList<NodeInfo> neighbors = AppInfo.myInfo.getNeighbors();
 		for(int i = 0; i < neighbors.size(); i++) {
 			int[] neighbourId = neighbors.get(i).getIdBase3();
 			if(neighbourId[Constants.ID_MAX_DIGITS-1] == 0) {

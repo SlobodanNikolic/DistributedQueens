@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import concurrent.Token;
 import helpers.Constants;
@@ -21,10 +22,10 @@ public class NodeInfo implements Serializable{
 	private boolean isBootstrap = false;
 	private int requestsSentCount = 0;
 	private Token token = new Token(false);
-	private ArrayList<NodeInfo> neighbors = new ArrayList<NodeInfo>();
+	private CopyOnWriteArrayList<NodeInfo> neighbors = new CopyOnWriteArrayList<NodeInfo>();
 		
 	private Integer[] sequenceCounter = new Integer[Constants.MAX_NODES + 1];
-	private ArrayList<Integer> neighborsToContact = new ArrayList<Integer>();
+	private CopyOnWriteArrayList<Integer> neighborsToContact = new CopyOnWriteArrayList<Integer>();
 	
 	
 	
@@ -159,11 +160,11 @@ public class NodeInfo implements Serializable{
 		this.token = token;
 	}
 
-	public ArrayList<NodeInfo> getNeighbors() {
+	public CopyOnWriteArrayList<NodeInfo> getNeighbors() {
 		return neighbors;
 	}
 
-	public void setNeighbors(ArrayList<NodeInfo> neighbors) {
+	public void setNeighbors(CopyOnWriteArrayList<NodeInfo> neighbors) {
 		this.neighbors = neighbors;
 	}
 
@@ -175,11 +176,11 @@ public class NodeInfo implements Serializable{
 		this.sequenceCounter = sequenceCounter;
 	}
 
-	public ArrayList<Integer> getNeighborsToContact() {
+	public CopyOnWriteArrayList<Integer> getNeighborsToContact() {
 		return neighborsToContact;
 	}
 
-	public void setNeighborsToContact(ArrayList<Integer> neighborsToContact) {
+	public void setNeighborsToContact(CopyOnWriteArrayList<Integer> neighborsToContact) {
 		this.neighborsToContact = neighborsToContact;
 	}
 }

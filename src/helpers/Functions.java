@@ -1,14 +1,15 @@
 package helpers;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import sun.security.util.AuthResources_ko;
 
 public class Functions {
 	
-	public static ArrayList<Integer> whoToContact(int myId) {
+	public static CopyOnWriteArrayList<Integer> whoToContact(int myId) {
 		int[] base3Id = decToBase3(myId);
-		ArrayList<Integer> result = new ArrayList<Integer>();
+		CopyOnWriteArrayList<Integer> result = new CopyOnWriteArrayList<Integer>();
 		
 //		Da li sam ja 0? Ako jesam, formiram svoj komsiluk. 
 //		Treba da nadjem one koji se od mene razlikuju po prvoj cifri koja nije 0

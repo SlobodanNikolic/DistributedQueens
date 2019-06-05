@@ -25,6 +25,7 @@ public class PositionSetHandler implements MessageHandler {
 //		Nego samo jedan hendler u isto vreme
 		
 		if (clientMessage.getMessageType() == MessageType.POSITION_SET) {
+			AppInfo.timestampedStandardPrint("Got a POSITION SET message from " + clientMessage.getSenderInfo().getId());
 			AppInfo.timestampedStandardPrint(clientMessage.toString());
 
 			if(AppInfo.myInfo.isBootstrap()) {

@@ -20,7 +20,7 @@ import node.SimpleListener;
 
 public class BootstrapListener extends SimpleListener implements Runnable{
 
-	private final ExecutorService threadPool = Executors.newWorkStealingPool();
+	private final ExecutorService threadPool = Executors.newCachedThreadPool();
 	private BootstrapWorker bootstrap;	
 	
 	private Boolean working = true;
@@ -55,7 +55,7 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 				Message message = MessageUtil.readMessage(clientSocket);	
 				
 				MessageHandler messageHandler = new NullHandler(message);
-				
+				AppInfo.timestampedStandardPrint("Message read. Moving on.");
 				/*
 				 * Each message type has it's own handler.
 				 * If we can get away with stateless handlers, we will,
@@ -77,6 +77,7 @@ public class BootstrapListener extends SimpleListener implements Runnable{
 			} catch (SocketTimeoutException timeoutEx) {
 				//Uncomment the next line to see that we are waking up every second.
 				AppInfo.timestampedStandardPrint("Waiting...");
+				timeoutEx.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

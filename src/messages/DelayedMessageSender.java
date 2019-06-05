@@ -29,11 +29,12 @@ public class DelayedMessageSender implements Runnable {
 		 * A random sleep before sending.
 		 * It is important to take regular naps for health reasons.
 		 */
-		try {
-			Thread.sleep((long)(Math.random() * 1000) + 500);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			Thread.sleep((long)(Math.random() * 1000) + 500);
+//		} catch (InterruptedException e1) {
+//			e1.printStackTrace();
+//		}
+//		TODO: vratiti random slanje poruka
 		
 		NodeInfo receiverInfo = messageToSend.getReceiverInfo();
 		

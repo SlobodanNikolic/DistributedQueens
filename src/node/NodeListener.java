@@ -20,6 +20,7 @@ import messages.handlers.TokenRequestHandler;
 
 public class NodeListener extends SimpleListener implements Runnable {
 
+//	TODO: izmeniti - work stealing
 	private final ExecutorService threadPool = Executors.newWorkStealingPool();
 		
 	private Boolean working = true;

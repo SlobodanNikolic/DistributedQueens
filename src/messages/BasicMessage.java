@@ -25,7 +25,7 @@ public abstract class BasicMessage implements Message {
 	private final NodeInfo originalSenderInfo;
 	private final NodeInfo senderInfo;
 	private final NodeInfo receiverInfo;
-	private final List<NodeInfo> routeList;
+//	private final List<NodeInfo> routeList;
 	private final String messageText;
 	
 	private final int messageId;
@@ -36,8 +36,8 @@ public abstract class BasicMessage implements Message {
 		this.originalSenderInfo = originalSender;
 		this.senderInfo = sender;
 		this.receiverInfo = reciever;
-		this.routeList = new ArrayList<NodeInfo>();
-		routeList.add(sender);
+//		this.routeList = new ArrayList<NodeInfo>();
+//		routeList.add(sender);
 		this.messageText = "";
 		int id = AppInfo.sentMessagesCount;
 		id++;
@@ -51,8 +51,8 @@ public abstract class BasicMessage implements Message {
 		this.originalSenderInfo = originalSender;
 		this.senderInfo = sender;
 		this.receiverInfo = reciever;
-		this.routeList = new ArrayList<NodeInfo>();
-		routeList.add(sender);
+//		this.routeList = new ArrayList<NodeInfo>();
+//		routeList.add(sender);
 		this.messageText = "";
 		int id = AppInfo.sentMessagesCount;
 		id++;
@@ -65,8 +65,8 @@ public abstract class BasicMessage implements Message {
 		this.originalSenderInfo = originalSender;
 		this.senderInfo = sender;
 		this.receiverInfo = reciever;
-		this.routeList = new ArrayList<NodeInfo>();
-		routeList.add(sender);
+//		this.routeList = new ArrayList<NodeInfo>();
+//		routeList.add(sender);
 		this.messageText = text;
 		int id = AppInfo.sentMessagesCount;
 		id++;
@@ -89,10 +89,10 @@ public abstract class BasicMessage implements Message {
 		return receiverInfo;
 	}
 	
-	@Override
-	public List<NodeInfo> getRoute() {
-		return routeList;
-	}
+//	@Override
+//	public List<NodeInfo> getRoute() {
+//		return routeList;
+//	}
 	
 	@Override
 	public String getMessageText() {
@@ -114,7 +114,7 @@ public abstract class BasicMessage implements Message {
 	public void makeMeASender() {
 //		TODO: Ovo ne valja. Referenca pokazuje i na original sender info.
 		NodeInfo newRouteItem = AppInfo.myInfo;
-		routeList.add(newRouteItem);
+//		routeList.add(newRouteItem);
 		this.senderInfo.setId(AppInfo.myInfo.getId());
 		this.senderInfo.setIdBase3(AppInfo.myInfo.getIdBase3());
 		this.senderInfo.setIp(AppInfo.myInfo.getIp());

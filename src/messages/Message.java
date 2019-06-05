@@ -21,7 +21,7 @@ public interface Message extends Serializable {
 	 * If a servent uses <code>makeMeASender</code> when resending a message, it will
 	 * be added to this list. So we can use this to see how this message got to us.
 	 */
-	List<NodeInfo> getRoute();
+//	List<NodeInfo> getRoute();
 	
 	/**
 	 * Information about the receiver of the message.

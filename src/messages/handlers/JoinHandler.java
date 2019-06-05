@@ -27,13 +27,23 @@ public class JoinHandler implements MessageHandler {
 
 	@Override
 	public void run() {
+		AppInfo.timestampedStandardPrint(clientMessage.toString());
+
 		if (clientMessage.getMessageType() == MessageType.JOIN) {
 			AppInfo.timestampedStandardPrint(clientMessage.toString());
 
 			while(!AppInfo.joinLock.compareAndSet(true, false)) {
-//				Cekamo u petlji TODO: sleep
-				
+				try {
+					AppInfo.timestampedStandardPrint("Lock blocked.");
+					Random random = new Random();
+					Thread.sleep(random.nextInt(3000)+1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			AppInfo.timestampedStandardPrint("Got the join lock");
+
 			NodeInfo newCookie = clientMessage.getSenderInfo();
 			
 			if(bootstrap.getNodeCount() == 0) {
