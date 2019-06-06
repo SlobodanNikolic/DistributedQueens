@@ -22,6 +22,8 @@ import messages.handlers.MessageHandler;
 import messages.handlers.NodeCountHandler;
 import messages.handlers.NullHandler;
 import messages.handlers.PingHandler;
+import messages.handlers.ResultReportHandler;
+import messages.handlers.StartNowHandler;
 import messages.handlers.SwitchPlacesHandler;
 import messages.handlers.TokenRequestHandler;
 
@@ -113,6 +115,13 @@ public class NodeListener extends SimpleListener implements Runnable {
 				case EXIT_GRANTED:
 					messageHandler = new ExitGrantHandler(message, this);
 					break;
+				case RESULT_REPORT:
+					messageHandler = new ResultReportHandler(message);
+					break;
+				case START_NOW:
+					messageHandler = new StartNowHandler(message);
+					break;
+				
 				}
 				
 				threadPool.submit(messageHandler);

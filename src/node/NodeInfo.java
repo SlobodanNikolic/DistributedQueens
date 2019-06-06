@@ -47,10 +47,6 @@ public class NodeInfo implements Serializable{
 	private ConcurrentHashMap<Integer, ConcurrentHashMap<Integer, QueensResult>> results = 
 			new ConcurrentHashMap<Integer, ConcurrentHashMap<Integer, QueensResult>>();
 	
-	
-	
-	
-	
 	public NodeInfo() {
 		for(int i = 0; i < Constants.MAX_NODES; i++) {
 			sequenceCounter[i]=0;
@@ -190,6 +186,15 @@ public class NodeInfo implements Serializable{
 			if(neighbour.getId() == oldData.getId()) {
 				neighbour.setIp(newData.getIp());
 				neighbour.setPort(newData.getPort());
+			}
+		}
+	}
+	
+	public void checkAwaiting(int tableSize) {
+		int count = 0;
+		if(results.get(tableSize)!= null) {
+			if(results.get(tableSize).mappingCount()>=AppInfo.nodeCount) {
+				AppInfo.timestampedStandardPrint("Results for table size " + tableSize + " are ready!");
 			}
 		}
 	}
@@ -354,4 +359,6 @@ public class NodeInfo implements Serializable{
 	public void setConnBreakNodes(CopyOnWriteArrayList<Integer> nodesForConnBreak) {
 		this.nodesForConnectionBrake = nodesForConnBreak;
 	}
+
+	
 }

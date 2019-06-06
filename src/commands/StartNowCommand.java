@@ -36,12 +36,13 @@ public class StartNowCommand implements Command {
 				QueensResult existingResult = AppInfo.myInfo.checkForResult(boardSize);
 				if(existingResult != null) {
 //					Vec imamo neki rezultat za to, treba da ga prosledimo novom workeru
-//					koji ce da nastavi dalje.
-					NodeWorker worker = new NodeWorker(existingResult);
-					Thread workerThread = new Thread(worker);
+//					koji ce da nastavi dalje. TODO: Ako racunanje nije zavrseno.
+					AppInfo.myInfo.setWorker(new NodeWorker(existingResult));
+					Thread workerThread = new Thread(AppInfo.myInfo.getWorker());
 					workerThread.start();
-					AppInfo.myInfo.setWorker(worker);
 					int messagesSentCount = 0;
+					AppInfo.myInfo.setAwaiting(boardSize, messagesSentCount);
+					
 					
 //					Salji poruku ostalima da startuju
 					for(int i = 0; i < AppInfo.nodeCount; i++) {
@@ -50,7 +51,7 @@ public class StartNowCommand implements Command {
 						else {
 							int s = -1;
 							int e = -1;
-							StartNowMessage message = new StartNowMessage(AppInfo.myInfo, AppInfo.myInfo, AppInfo.myInfo.getNeighbors().get(0), ""+s+","+e+","+i);
+							StartNowMessage message = new StartNowMessage(AppInfo.myInfo, AppInfo.myInfo, AppInfo.myInfo.getNeighbors().get(0), boardSize+","+s+","+e+","+i);
 							MessageUtil.sendMessage(message);
 							messagesSentCount++;
 							AppInfo.myInfo.setAwaiting(boardSize, messagesSentCount);
@@ -77,14 +78,13 @@ public class StartNowCommand implements Command {
 					QueensResult res = new QueensResult(startNumber, endNumber, boardSize, 0, 0, QueenStatus.WORKING);
 					AppInfo.myInfo.addResult(res, AppInfo.myInfo.getId());
 					
-					NodeWorker worker = new NodeWorker(startNumber, endNumber, 0, boardSize);
-					Thread workerThread = new Thread(worker);
+					AppInfo.myInfo.setWorker(new NodeWorker(startNumber, endNumber, 0, boardSize));
+					Thread workerThread = new Thread(AppInfo.myInfo.getWorker());
 					workerThread.start();
-					AppInfo.myInfo.setWorker(worker);
 					
-					currentPointer+=jobSize;
+					currentPointer+=jobSize+1;
 					int messagesSentCount = 0;
-
+					AppInfo.myInfo.setAwaiting(boardSize, messagesSentCount);
 					
 					while(currentPointer < totalCombinations) {
 						
@@ -100,9 +100,9 @@ public class StartNowCommand implements Command {
 							endNumber = totalCombinations-1;
 						}
 						
-						currentPointer+=jobSize;
+						currentPointer+=jobSize+1;
 						
-						StartNowMessage message = new StartNowMessage(AppInfo.myInfo, AppInfo.myInfo, AppInfo.myInfo.getNeighbors().get(0), ""+startNumber+","+endNumber+","+nodeAssigned);
+						StartNowMessage message = new StartNowMessage(AppInfo.myInfo, AppInfo.myInfo, AppInfo.myInfo.getNeighbors().get(0), boardSize+","+startNumber+","+endNumber+","+nodeAssigned);
 						MessageUtil.sendMessage(message);
 						messagesSentCount++;
 						AppInfo.myInfo.setAwaiting(boardSize, messagesSentCount);

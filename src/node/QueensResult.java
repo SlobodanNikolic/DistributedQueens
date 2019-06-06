@@ -1,5 +1,7 @@
 package node;
 
+import java.util.ArrayList;
+
 public class QueensResult {
 	
 	private int startRange;
@@ -8,6 +10,7 @@ public class QueensResult {
 	private int percentDone;
 	private int tablesDone;
 	private QueenStatus status = QueenStatus.NOT_STARTED;
+	private ArrayList<Integer> possibleSolutions = new ArrayList<Integer>();
 	
 	public QueensResult(int startRange, int endRange, int tableSize, int percentDone, int tablesDone, QueenStatus status) {
 		this.startRange = startRange;
@@ -17,6 +20,16 @@ public class QueensResult {
 		this.tablesDone = tablesDone;
 		this.status = status;
 
+	}
+	
+	public QueensResult(int startRange, int endRange, int tableSize, int percentDone, int tablesDone, QueenStatus status, ArrayList<Integer>solutions) {
+		this.startRange = startRange;
+		this.endRange = endRange;
+		this.tableSize = tableSize;
+		this.percentDone = percentDone;
+		this.tablesDone = tablesDone;
+		this.status = status;
+		this.possibleSolutions = solutions;
 	}
 	
 	public QueensResult() {
@@ -70,6 +83,17 @@ public class QueensResult {
 	public void setStatus(QueenStatus status) {
 		this.status = status;
 	}
+
+	public ArrayList<Integer> getPossibleSolutions() {
+		return possibleSolutions;
+	}
+
+	public void setPossibleSolutions(ArrayList<Integer> possibleSolutions) {
+		this.possibleSolutions = possibleSolutions;
+	}
 	
+	public void addSolution(int number) {
+		possibleSolutions.add(number);
+	}
 	
 }
