@@ -122,9 +122,10 @@ public class StartNowCommand implements Command {
 	public void execute(String args) {
 		
 		int boardSize = Integer.parseInt(args);
+		AppInfo.timestampedStandardPrint("Starting command with argument " + boardSize);
+
 		Thread t = new Thread(new StartWorker(boardSize));
 		t.start();
-		
 	}
 
 }

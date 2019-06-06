@@ -1,5 +1,6 @@
 package node;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import app.AppInfo;
@@ -8,7 +9,7 @@ import messages.MessageUtil;
 import messages.ResultReportMessage;
 import messages.StartNowMessage;
 
-public class NodeWorker implements Runnable{
+public class NodeWorker implements Runnable, Serializable{
 
 	boolean running = false;
 	private int startRange =0;
@@ -95,18 +96,44 @@ public class NodeWorker implements Runnable{
 		return;
 	}
 	
+	public String arrayToString(int[] array) {
+		String result = "";
+		for (int i : array) {
+			result+=i;
+		}
+		return result;
+	}
+	
+	public String matrixToString(int[][] matrix, int matrixSize) {
+		String res = "";
+		for(int i = 0; i < matrixSize; i++) {
+			for(int j = 0; j < matrixSize; j++) {
+				res+=matrix[i][j] + ", "; 
+			}
+			res+=System.lineSeparator();
+		}
+		return res;
+	}
+	
 	public boolean checkTable(int table) {
 		
 		int[] tableBaseN = Functions.decToBaseN(table, tableSize);
 		int[][] realTable = new int[tableSize][tableSize];
 				
+		AppInfo.timestampedStandardPrint("Checking table: " + table + ": " + " for table size " + tableSize);
+		
 //		Popunjavamo tablu kraljicama (1)
 		for(int i = 0; i < tableBaseN.length; i++) {
 			realTable[tableBaseN[i]][i] = 1;
 		}
+		
+		AppInfo.timestampedStandardPrint(arrayToString(tableBaseN));
+		
+		AppInfo.timestampedStandardPrint(matrixToString(realTable, tableSize));
+		
 //		Trazimo kraljicu po kraljicu i za svaku proveravamo da li postoji neka kraljica na njenom putu
 		for(int i = 0; i < tableSize; i++) {
-			for(int j = 0; i < tableSize; j++) {
+			for(int j = 0; j < tableSize; j++) {
 				if(realTable[i][j]==1) {
 					if(checkHorizontal(i, j, realTable)
 							|| checkVertical(i, j, realTable)

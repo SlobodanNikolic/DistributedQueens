@@ -10,7 +10,7 @@ public class TokenMessage extends BasicMessage {
 	private Token token;
 	
 	public TokenMessage(NodeInfo originalSender, NodeInfo sender, NodeInfo receiver, Token token) {
-		super(MessageType.PING, originalSender, sender, receiver);
+		super(MessageType.TOKEN, originalSender, sender, receiver);
 		this.token = token;
 	}
 	

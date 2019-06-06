@@ -87,4 +87,22 @@ public class Functions {
 		return result;
 	}
 
+	public static String arrayToString(int[] array) {
+		String result = "";
+		for (int i : array) {
+			result+=i;
+		}
+		return result;
+	}
+	
+	public static String matrixToString(int[][] matrix, int matrixSize) {
+		String res = "";
+		for(int i = 0; i < matrixSize; i++) {
+			for(int j = 0; j < matrixSize; j++) {
+				res+=matrix[i][j] + ", "; 
+			}
+			res+=System.lineSeparator();
+		}
+		return res;
+	}
 }

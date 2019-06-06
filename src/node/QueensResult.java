@@ -1,8 +1,9 @@
 package node;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class QueensResult {
+public class QueensResult implements Serializable{
 	
 	private int startRange;
 	private int endRange;

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -14,6 +15,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import app.AppInfo;
 import concurrent.Token;
 import helpers.Constants;
+import helpers.Functions;
 
 public class NodeInfo implements Serializable{
 	
@@ -196,7 +198,27 @@ public class NodeInfo implements Serializable{
 			if(results.get(tableSize).mappingCount()>=AppInfo.nodeCount) {
 				AppInfo.timestampedStandardPrint("Results for table size " + tableSize + " are ready!");
 			}
+			
+//			for (Entry<Integer, QueensResult> entry : results.get(tableSize).entrySet()) {
+//				for (int sol : entry.getValue().getPossibleSolutions()) {
+//					printTable(sol, tableSize);
+//				}
+//			}
 		}
+		
+	}
+	
+	public void printTable(int table, int tableSize) {
+		int[] tableBaseN = Functions.decToBaseN(table, tableSize);
+		int[][] realTable = new int[tableSize][tableSize];
+				
+		
+//		Popunjavamo tablu kraljicama (1)
+		for(int i = 0; i < tableBaseN.length; i++) {
+			realTable[tableBaseN[i]][i] = 1;
+		}
+		
+		AppInfo.timestampedStandardPrint(Functions.matrixToString(realTable, tableSize));
 	}
 	
 	public void clearNeighbors() {
