@@ -11,16 +11,12 @@ public class NodeMain {
 		NodeConfig.getInstance().readConfig("resources/node_properties.properties");
 		
 		System.out.println("Node: ip: " + AppInfo.myInfo.getIp());
-		
-		NodeWorker worker = new NodeWorker();
-		Thread workerThread = new Thread(worker);
-		workerThread.start();
 			
-		NodeListener listener = new NodeListener(worker);
+		NodeListener listener = new NodeListener();
 		Thread listenerThread = new Thread(listener);
 		listenerThread.start();
 		
-		CLIParser parser = new CLIParser(listener, worker);
+		CLIParser parser = new CLIParser(listener);
 		Thread parserThread = new Thread(parser);
 		parserThread.start();
 		

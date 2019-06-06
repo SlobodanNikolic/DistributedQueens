@@ -31,15 +31,14 @@ public class NodeListener extends SimpleListener implements Runnable {
 	private final ExecutorService threadPool = Executors.newCachedThreadPool();
 		
 	private Boolean working = true;
-	private NodeWorker worker;
 	private CLIParser cli;
 	
 	public void setCli(CLIParser cli) {
 		this.cli = cli;
 	}
 	
-	public NodeListener(NodeWorker worker) {
-		this.worker = worker;
+	public NodeListener() {
+
 	}
 
 	@Override
@@ -139,13 +138,6 @@ public class NodeListener extends SimpleListener implements Runnable {
 		this.working = working;
 	}
 
-	public NodeWorker getWorker() {
-		return worker;
-	}
-
-	public void setWorker(NodeWorker worker) {
-		this.worker = worker;
-	}
 
 	public CLIParser getCli() {
 		return cli;

@@ -24,6 +24,7 @@ public class AppInfo {
 	
 	public static final AtomicBoolean joinLock = new AtomicBoolean(true);
 	
+	
 	public AppInfo() {
 		
 	}

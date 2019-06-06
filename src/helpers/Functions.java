@@ -62,5 +62,29 @@ public class Functions {
 		}
 		return result;
 	}
+	
+	public static int[] decToBaseN(int number, int base) {
+		
+		int[] baseNNumber = new int[base];
+		int currentIndex = base-1;
+		while(true) {
+			int left = number%base;
+			baseNNumber[currentIndex--] = left;
+			number = number/base;
+			if(number == 0) {
+				break;
+			}
+		}
+		
+		return baseNNumber;
+	}
+	
+	public static int baseNToDec(int[] baseNNumber, int base) {
+		int result = 0;
+		for(int i = base-1, j=0; i>=0; i--, j++) {
+			result += baseNNumber[i]*((int) java.lang.Math.pow(base, j));
+		}
+		return result;
+	}
 
 }
